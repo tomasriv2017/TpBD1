@@ -1,7 +1,7 @@
 /*********PROCEDIMIENTOS ALMACENADOS PARA PEDIDOS**********/
 /*ALTA*/
 DELIMITER $$
-CREATE PROCEDURE stp_agregarPedido( in _idModeloVehiculo int, in _fechaPedido datetime, in _descripcionPedido varchar(45) , in _cuitConcensionaria varchar(45) , in _cantPedido int )
+CREATE PROCEDURE agregarPedido( in _idModeloVehiculo int, in _fechaPedido datetime, in _descripcionPedido varchar(45) , in _cuitConcensionaria varchar(45) , in _cantPedido int )
 BEGIN
 	DECLARE _idPedido int default 0;
     
@@ -15,7 +15,7 @@ DELIMITER ;
 
 /*BAJA*/
 DELIMITER $$
-CREATE PROCEDURE stp_eliminarPedido( in _idPedido int ,  in _idModeloVehiculo int )
+CREATE PROCEDURE eliminarPedido( in _idPedido int ,  in _idModeloVehiculo int )
 BEGIN
 	delete from detalle_pedido where Pedido_idPedido = _idPedido and ModeloVehiculo_idModeloVehiculo = _idModeloVehiculo;
     delete from pedido where idPedido = _idPedido;
@@ -25,7 +25,7 @@ DELIMITER ;
 
 /*MODIFICACION*/
 DELIMITER $$
-CREATE PROCEDURE stp_modificarPedido( in _idPedido int, in _idModeloVehiculo int , in _fechaPedido datetime, in _descripcionPedido varchar(45) , in _cantPedido int )
+CREATE PROCEDURE modificarPedido( in _idPedido int, in _idModeloVehiculo int , in _fechaPedido datetime, in _descripcionPedido varchar(45) , in _cantPedido int )
 BEGIN
 		UPDATE pedido set fechaPedido = _fechaPedido , descripcionPedido = _descripcionPedido where idPedido = _idPedido;
         UPDATE detalle_pedido set cantPedido = _cantPedido where Pedido_idPedido = _idPedido and ModeloVehiculo_idModeloVehiculo = _idModeloVehiculo;
