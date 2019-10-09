@@ -24,7 +24,6 @@ CREATE TABLE IF NOT EXISTS `Terminal Automotriz`.`Concensionaria` (
 CREATE TABLE IF NOT EXISTS `Terminal Automotriz`.`Pedido` (
   `idPedido` INT NOT NULL,
   `fechaPedido` DATETIME NOT NULL,
-  `descripcionPedido` VARCHAR(45) NOT NULL,
   `fk_cuitConcensionaria` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idPedido`),
   INDEX `fk_Pedido_Concensionaria1_idx` (`fk_cuitConcensionaria` ASC) ,

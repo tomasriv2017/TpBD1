@@ -4,7 +4,7 @@
 DELIMITER $$
 CREATE PROCEDURE agregarProveedor ( in _cuitProvedor varchar(45), in _razonSocial varchar(45), out cMensaje varchar(100) , out nResultado int )
 BEGIN
-		declare cantidadRepetida int default 0;
+	declare cantidadRepetida int default 0;
     select count(*) into cantidadRepetida from provedor where cuitProvedor = _cuitProvedor;
     
      if (cantidadRepetida > 0 ) then
