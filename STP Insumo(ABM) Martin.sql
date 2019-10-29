@@ -8,7 +8,7 @@ BEGIN
     select count(*) into cantidadRepetida from insumo where idInsumo = _idInsumo;
       
 	if (cantidadRepetida > 0 ) then
-		select "El insumo ya existe" into iMensaje;
+		select "El insumo ya existe" into cMensaje;
 	    select -1 into nResultado;
 	else
 		insert into insumo values(_idInsumo,_descripcionInsumo,_precio);
@@ -46,7 +46,7 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE modificarInsumo( in _idInsumo int, in nueva_descripcionInsumo varchar(45), in nuevo_precio double , out cMensaje varchar(100) , out nResultado int)
 BEGIN
-	declare cantidadReeptida int default 0;
+	declare cantidadRepetida int default 0;
 	select count(*) into cantidadRepetida from insumo where idInsumo = _idInsumo;
     
     if(cantidadRepetida > 0) then

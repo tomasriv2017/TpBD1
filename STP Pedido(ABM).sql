@@ -4,12 +4,11 @@ DELIMITER $$
 CREATE PROCEDURE agregarPedido(in _idPedido int , in _idModeloVehiculo int, in _cantidadPedido int , in _fechaPedido datetime , in _cuitConcensionaria varchar(45) , out cMensaje varchar(100) , out nResultado int)
 BEGIN    
 	declare cantidadRepetida int default 0;
-    select count(*) into cantidadRepetida from detalle_pedido where ModeloVehiculo_idModeloVehiculo = _idModeloVehiculo and
-																		Pedido_idPedido = _idPedido;
-                                                                        
+    select count(*) into cantidadRepetida from pedido where idPedido = _idPedido;
+	
 	if( cantidadRepetida > 0) then
-		select -1 into nResultado;
-        select "El Pedido que quiere agregar ya Existe" into cMensaje;
+    	select 0 into nResultado;
+		insert into detalle_pedido values(_idModeloVehiculo,_idPedido,_cantidadPedido);
     
     else
 		select 0 into nResultado;

@@ -89,18 +89,13 @@ CREATE TABLE IF NOT EXISTS `Terminal Automotriz`.`Detalle_Pedido` (
 -- Table `Terminal Automotriz`.`Automovil`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Terminal Automotriz`.`Automovil` (
-  `chasis` VARCHAR(45) NOT NULL,
-  `fk_modeloVehiculo` INT NOT NULL,
-  `fechaInicio` DATETIME NOT NULL,
-  `fechaFin` DATETIME NULL,
+  `chasis` INT NOT NULL,
+  `fechaInicio` DATETIME ,
+  `fechaFinalizacion` DATETIME ,
   `fk_detallePedido_modeloVehiculo` INT NOT NULL,
   `fk_detalePedido_idPedido` INT NOT NULL,
   PRIMARY KEY (`chasis`),
-  INDEX `fk_Automovil_ModeloVehiculo1_idx` (`fk_modeloVehiculo` ASC) ,
   INDEX `fk_Automovil_DetallePedido1_idx` (`fk_detallePedido_modeloVehiculo` ASC, `fk_detalePedido_idPedido` ASC),
-  CONSTRAINT `fk_Automovil_ModeloVehiculo1`
-    FOREIGN KEY (`fk_modeloVehiculo`)
-    REFERENCES `Terminal Automotriz`.`ModeloVehiculo` (`idModeloVehiculo`),
   CONSTRAINT `fk_Automovil_DetallePedido1`
     FOREIGN KEY (`fk_detallePedido_modeloVehiculo` , `fk_detalePedido_idPedido`)
     REFERENCES `Terminal Automotriz`.`Detalle_Pedido` (`ModeloVehiculo_idModeloVehiculo` , `Pedido_idPedido`));
@@ -164,7 +159,7 @@ CREATE TABLE IF NOT EXISTS `Terminal Automotriz`.`Cantidad_Insumo` (
 -- Table `Terminal Automotriz`.`Automovil_EstacionTrabajo`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Terminal Automotriz`.`Automovil_EstacionTrabajo` (
-  `Automovil_chasis` VARCHAR(45) NOT NULL,
+  `Automovil_chasis` INT NOT NULL,
   `EstacionTrabajo_idEstacionTrabajo` INT NOT NULL,
   `fechaHoraIngreso` DATETIME NOT NULL,
   `fechaHoraEgreso` DATETIME NOT NULL,
@@ -185,8 +180,6 @@ CREATE TABLE IF NOT EXISTS `Terminal Automotriz`.`Automovil_EstacionTrabajo` (
 /************************************************************************----------------------------------**/
 -- INSUMO
 /*
-
-
 create table reg_insumo_agregado
 (
 	idInsumo int,
@@ -209,10 +202,7 @@ create table reg_insumo_eliminado
     descripcionInsumo varchar(45),
     precio double,
 	fechaEliminacion datetime
-
 );
-
-
 -- CONCENSIONARIA
 create table reg_concensionaria_agregado
 (
@@ -232,10 +222,7 @@ create table reg_concensionaria_eliminado
 	cuitConcensionaria varchar(45),
     razonSocial varchar(45),
 	fechaEliminacion datetime
-
 );
-
-
 -- PEDIDO
 create table reg_pedido_agregado
 (
@@ -264,6 +251,4 @@ create table reg_pedido_eliminado
     cuitConcensionaria varchar(45),
 	fechaEliminacion datetime
 );
-
-
 */
