@@ -2,8 +2,8 @@ CREATE DELIMITER $$
 CREATE PROCEDURE generarPedido (in _idPedido int )
 BEGIN
 	DECLARE idChasis INT;
-	DECLARE idModeloParametro INT;
-    
+	DECLARE idLineaMontajeParametro INT;
+        
     DECLARE finished int default 0;
 	DECLARE nCantidadDetalle INT; 
 	DECLARE nInsertados INT;
@@ -11,8 +11,8 @@ BEGIN
 	-- DECLARO EL CURSOR CON LA TABLA detalle_pedido
 	DECLARE curPedido
         CURSOR FOR
-            SELECT ModeloVehiculo_idModeloVehiculo , cantPedido FROM detalle_pedido WHERE Pedido_idPedido = _idPedido;
- 
+             SELECT LineaMontaje_idLineaMontaje , cantPedido FROM detalle_pedido WHERE Pedido_idPedido = _idPedido;
+
 	-- ESTO HAY QUE PONERLO SIEMPRE
     DECLARE CONTINUE HANDLER
         FOR NOT FOUND SET finished = 1;
@@ -21,23 +21,24 @@ BEGIN
     OPEN curPedido; -- abro el cursor
 	
     set idChasis = coalesce((select max(chasis) from automovil), 0);-- CON ESTO LO QUE CONSIGO ES TENER SIEMPRE EL ULTIMO NUMERO DE CHASIS PARA QUE NO SE REPITA
-    
+ 
+  
    -- comienzo el loop recorriendo el cursor.
     loop_pedido: LOOP
  
-        FETCH curPedido INTO idModeloParametro, nCantidadDetalle;
- 
+        FETCH curPedido INTO idLineaMontajeParametro , nCantidadDetalle;
+
         IF finished = 1 THEN
             LEAVE loop_pedido;
         END IF;
- 
+  
 		SET nInsertados = 0;
 		-- Aca loopeo para hacer N inserts.
 		WHILE nInsertados < nCantidadDetalle DO
-		 
+			
          -- genero la chasis 
 			set idChasis = idChasis + 1;
-			INSERT INTO automovil VALUES ( idChasis ,NULL,NULL,idModeloParametro, _idPedido);
+			INSERT INTO automovil VALUES ( idChasis ,NULL,NULL, idLineaMontajeParametro , _idPedido );
 		 
 			SET nInsertados = nInsertados  +1; 
 	 
