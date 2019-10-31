@@ -38,7 +38,7 @@ BEGIN
 			
          -- genero la chasis 
 			set idChasis = idChasis + 1;
-			INSERT INTO automovil VALUES ( idChasis ,NULL,NULL, idLineaMontajeParametro , _idPedido );
+			INSERT INTO automovil VALUES ( idChasis ,now(),NULL, idLineaMontajeParametro , _idPedido );
 		 
 			SET nInsertados = nInsertados  +1; 
 	 
